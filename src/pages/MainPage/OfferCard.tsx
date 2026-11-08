@@ -1,22 +1,27 @@
+import { Offer } from '../../mocks/offers';
+import { Link } from 'react-router-dom';
+
 type OfferCardProps = {
-  title: string;
-  type: string;
-  price: number;
-  rating: number;
-  isPremium: boolean;
-  isFavorite: boolean;
-  previewImage: string;
+  offer: Offer;
+  onMouseEnter?: (id: string) => void;
+  onMouseLeave?: () => void;
 };
 
 function OfferCard({
-  title,
-  type,
-  price,
-  rating,
-  isPremium,
-  isFavorite,
-  previewImage,
+  offer,
+  onMouseEnter,
+  onMouseLeave,
 }: OfferCardProps): JSX.Element {
+  const {
+    id,
+    title,
+    type,
+    price,
+    rating,
+    isPremium,
+    isFavorite,
+    previewImage,
+  } = offer;
   const ratingWidth = `${Math.round(rating) * 20}%`;
 
   const bookmarkButtonClassName = [
@@ -28,14 +33,18 @@ function OfferCard({
     .join(' ');
 
   return (
-    <article className="cities__card place-card ">
+    <article
+      className="cities__card place-card"
+      onMouseEnter={() => onMouseEnter?.(id)}
+      onMouseLeave={() => onMouseLeave?.()}
+    >
       {isPremium && (
         <div className="place-card__mark">
           <span>Premium</span>
         </div>
       )}
       <div className="cities__image-wrapper place-card__image-wrapper">
-        <a href="#">
+        <Link to={`/offer/${id}`}>
           <img
             className="place-card__image"
             src={previewImage}
@@ -43,7 +52,7 @@ function OfferCard({
             height={200}
             alt="Place image"
           />
-        </a>
+        </Link>
       </div>
       <div className="place-card__info">
         <div className="place-card__price-wrapper">

@@ -1,10 +1,12 @@
-import OfferCard from './OfferCard';
+import { Offer } from '../../mocks/offers';
+import OfferList from './OfferList';
+import { Link } from 'react-router-dom';
 
 type MainPageProps = {
-  offerCount: number;
+  offers: Offer[];
 };
 
-function MainPage({ offerCount }: MainPageProps): JSX.Element {
+function MainPage({ offers }: MainPageProps): JSX.Element {
   return (
     <body>
       <div className="page page--gray page--main">
@@ -12,7 +14,7 @@ function MainPage({ offerCount }: MainPageProps): JSX.Element {
           <div className="container">
             <div className="header__wrapper">
               <div className="header__left">
-                <a className="header__logo-link header__logo-link--active">
+                <Link className="header__logo-link" to="/">
                   <img
                     className="header__logo"
                     src="img/logo.svg"
@@ -20,7 +22,7 @@ function MainPage({ offerCount }: MainPageProps): JSX.Element {
                     width="81"
                     height="41"
                   />
-                </a>
+                </Link>
               </div>
               <nav className="header__nav">
                 <ul className="header__nav-list">
@@ -89,7 +91,7 @@ function MainPage({ offerCount }: MainPageProps): JSX.Element {
               <section className="cities__places places">
                 <h2 className="visually-hidden">Places</h2>
                 <b className="places__found">
-                  {offerCount} places to stay in Amsterdam
+                  {offers.length} places to stay in Amsterdam
                 </b>
                 <form className="places__sorting" action="#" method="get">
                   <span className="places__sorting-caption">Sort by</span>
@@ -117,57 +119,7 @@ function MainPage({ offerCount }: MainPageProps): JSX.Element {
                     </li>
                   </ul>
                 </form>
-                <div className="cities__places-list places__list tabs__content">
-                  <OfferCard
-                    title="Beautiful & luxurious apartment at great location"
-                    type="Apartment"
-                    price={120}
-                    rating={4}
-                    isPremium
-                    isFavorite={false}
-                    previewImage="img/apartment-01.jpg"
-                  />
-
-                  <OfferCard
-                    title="Wood and stone place"
-                    type="Room"
-                    price={80}
-                    rating={4}
-                    isPremium={false}
-                    isFavorite
-                    previewImage="img/room.jpg"
-                  />
-
-                  <OfferCard
-                    title="Canal View Prinsengracht"
-                    type="Apartment"
-                    price={132}
-                    rating={4}
-                    isPremium={false}
-                    isFavorite={false}
-                    previewImage="img/apartment-02.jpg"
-                  />
-
-                  <OfferCard
-                    title="Nice, cozy, warm big bed apartment"
-                    type="Apartment"
-                    price={180}
-                    rating={5}
-                    isPremium
-                    isFavorite={false}
-                    previewImage="img/apartment-03.jpg"
-                  />
-
-                  <OfferCard
-                    title="Wood and stone place"
-                    type="Room"
-                    price={80}
-                    rating={4}
-                    isPremium={false}
-                    isFavorite
-                    previewImage="img/room.jpg"
-                  />
-                </div>
+                <OfferList offers={offers} />
               </section>
               <div className="cities__right-section">
                 <section className="cities__map map"></section>
